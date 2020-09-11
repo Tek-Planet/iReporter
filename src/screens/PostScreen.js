@@ -10,8 +10,8 @@ export default class PostScreen extends Component {
   }
 
   render() {
-    return (
-    <Text>Hey post man</Text>
+    return ( 
+        <PostRoute />
     );
   }
 }
