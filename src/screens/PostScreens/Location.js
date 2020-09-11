@@ -52,17 +52,19 @@ const LocationScreen = ({route, navigation}) => {
             // placeHolder = {{'type any textInput placeholder as you like'}} //optional
             /> */}
          <GooglePlacesAutocomplete
-      placeholder='Search'
-      onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-      }}
-      query={{
-        key: 'AIzaSyDfVoSZvzd8hi_hJNfi4N01MbxBPzPpxjY',
-        language: 'en',
-        
-      }}
-    />
+            placeholder='Search'
+            fetchDetails={true}
+            listViewDisplayed={false}
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              console.log(data, details);
+            }}
+            query={{
+              key: 'AIzaSyDfVoSZvzd8hi_hJNfi4N01MbxBPzPpxjY',
+              language: 'en',
+              
+            }}
+          />
        </View>
       </View>
     );
