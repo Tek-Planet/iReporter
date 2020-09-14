@@ -190,28 +190,27 @@ const CategoryScreen = ({route, navigation}) => {
 ]
   
   const {request} = route.params;
+  const {image} = route.params;
   
   const goNext = () => {
     navigation.navigate('Summary', {
       request: request,
+      image: image,
   })
   }
   
   const [data, setData] = React.useState({
-    isCurrentId: 0,
-    
+    isCurrentId: 0, 
 });
   
-const idChange = (val, val_name) => {
-    
+const idChange = (val, val_name) => {  
     setData({
         ...data,
         isCurrentId: val,
     });
     
     request.service_code = val
-    request.service_name = val_name
-    
+    request.service_name = val_name  
 }
   
   

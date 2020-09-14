@@ -7,13 +7,15 @@ const SummaryScreen = ({route, navigation}) => {
   
 
   const {request} = route.params;
+  const {image} = route.params;
+  
   const textInputChange = (val) => {
     if( val.trim().length >= 4 ) {
        request.description = val
     } 
 }
   const goNext = () => {
-  alert('Submitting Request')
+ 
   }
   return (
     <SafeAreaView>
@@ -41,22 +43,24 @@ const SummaryScreen = ({route, navigation}) => {
       </View>
       
       <View>
-      <Text style={{fontSize:25, marginStart:10}}>Report Summary</Text>
+      <Text style={{fontSize:25, margin:10}}>Report Summary</Text>
      
      </View>
       
       <View >
-      <Image
-            source={{
-              uri: request.img,
-            }}
-            style={{height: 200, width: '98%', borderRadius:10, alignSelf:'center'}}
-            />
+      {
+        image !== 'default' ? ( <Image
+          source={{
+            uri: image.path,
+          }}
+          style={{height: 300, width: 350, borderRadius:10, alignSelf:'center'}}
+          />):null
+      }
       </View>
       
       <View>
           <Text style={{fontSize:22, margin:10, fontWeight:'bold'}}>{request.service_name}</Text>
-          <Text style={{fontSize:20, margin:10, fontWeight:'normal'}}>{request.location}</Text>
+          <Text style={{fontSize:20, margin:10, fontWeight:'normal'}}>{request.locationName}</Text>
           
           <Text style={{fontSize:20, margin:10, fontWeight:'normal'}}>Report Description</Text>
           <View style={styles.inputContainer}>
@@ -66,6 +70,7 @@ const SummaryScreen = ({route, navigation}) => {
                     placeholder="Description"
                     placeholderTextColor="#666666" 
                     autoCapitalize="none"
+                    onChangeText={(val) => textInputChange(val)}
                     style={styles.input}       
                 />
           </View>

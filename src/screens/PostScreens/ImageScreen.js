@@ -5,40 +5,40 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const ImageScreen = ({navigation}) => {
-  const [request, setRequest] = useState({img:'https://api.adorable.io/avatars/80/abott@adorable.png',
+  const [request, setRequest] = useState({img:'default',
                                           location: 'Lagos Nigeria'})
   const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   
   const takePhotoFromCamera = (navigation) => {
     ImagePicker.openCamera({
-      compressImageMaxWidth: 300,
-      compressImageMaxHeight: 300,
+      compressImageMaxWidth: 400,
+      compressImageMaxHeight: 400,
       cropping: true,
       compressImageQuality: 0.7
     }).then(image => {
-      console.log(image);
-      setImage(image.path);
-      setRequest({img:image.path})
-        
-   
-    });
+      console.log(image);  
+      navigation.navigate('ImageView', {
+        image: image,
+        request: request,
+    })
+    })
+    .catch(error => console.warn(error));
   }
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 300,
+      width: 400,
+      height: 400,
       cropping: true,
       compressImageQuality: 0.7
     }).then(image => {
-      console.log(image);
-      setImage(image.path);
-      setRequest({img : image.path})   
+      console.log(image);  
       navigation.navigate('ImageView', {
+        image: image,
         request: request,
-    }) 
-      
-    });
+    })
+    })
+    .catch(error => console.warn(error));
   }
 
     return (
@@ -70,7 +70,10 @@ const ImageScreen = ({navigation}) => {
       </View>
       </TouchableOpacity>
      
-      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+      <TouchableOpacity style={styles.panelButton}    onPress={() => navigation.navigate('Location', {
+        request: request,
+        image:'default'
+    })}>
       <View style= {{flexDirection:'row', margin:5}}>
       <Icon name="alert-circle-outline" color={'#000'} size={26} />
       <Text style={styles.panelButtonTitle}>No Image</Text>

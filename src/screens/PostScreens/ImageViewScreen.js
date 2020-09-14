@@ -7,13 +7,14 @@ const LocationScreen = ({route, navigation}) => {
   const gotoLocation = () => {
     navigation.navigate('Location', {
       request: request,
+      image: image,
   })
   }
   
   const {request} = route.params;
+  const {image} = route.params;
   
-    return (
-      
+    return (  
       <View style={{flex:1}}> 
      
        <View style={{padding:15, flexDirection: 'row', justifyContent:'space-between'}}>
@@ -38,10 +39,11 @@ const LocationScreen = ({route, navigation}) => {
         <View >
         <Image
             source={{
-              uri: request.img,
+              uri: image.path,
             }}
-            style={{height: '90%', width: '98%', borderRadius:10, alignSelf:'center'}}
+            style={{height: 400, width: '98%', borderRadius:10, alignSelf:'center'}}
             />
+       
         </View>
       </View>
     );
