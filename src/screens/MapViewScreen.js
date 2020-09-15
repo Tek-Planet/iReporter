@@ -13,6 +13,7 @@ import MapView,{Callout} from "react-native-maps";
 import { markers } from '../../assets/model/mapData';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
 
 
 
@@ -29,19 +30,27 @@ const MapViewScreen = ({navigation}) => {
     region: {
      latitude: 33.44837,
       longitude: -112.0740,
-      // latitudeDelta: 0.0022,
-      // longitudeDelta: 0.0021,
-      
-    //  latitude: 37.78825,
-     // longitude: -122.4324,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     },
   };
 
-
 const [state, setState] = React.useState(initialMapState);
 const _map = React.useRef(null);
+
+useEffect(() => {
+  setTimeout(() => {
+    axios.get('https://phoenix311openapi.azurewebsites.net/api/Request?start_date=2020-09-13T00:00:00Z')
+    .then(res => {
+      setState({
+        ...state,
+        markers:res.data
+      })})
+      .catch(err => {
+        console.log(err)
+      })
+  }, 5000);
+}, []);
 
 return (
   <View style={styles.container}>
@@ -83,6 +92,7 @@ return (
       >
         {state.markers.map((marker, index) => {
           // convert lat and logitude to coordinates
+          if(marker.lat !== null || marker.long !== null){
           let  latlng = {
             latitude: marker.lat,
             longitude: marker.long
@@ -111,7 +121,8 @@ return (
             </Callout>
             </MapView.Marker>
           );
-        })}
+  }  })}
+         
       </MapView>
     </View>)
 }
